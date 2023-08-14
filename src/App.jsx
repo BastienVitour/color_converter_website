@@ -18,13 +18,20 @@ export default function App() {
 		let hexColor = '#'
 
 		for (let i = 0; i < 6; i++)
-			hexColor += hexTab[Math.floor(Math.random() * 16) + 1]
+			hexColor += hexTab[Math.floor(Math.random() * 16)]
 
 		document.getElementsByClassName('app')[0].style.backgroundColor = hexColor
 
 		hexInput.current.style.backgroundColor = hexColor
 		rgbInput.current.style.backgroundColor = hexColor
 		hslInput.current.style.backgroundColor = hexColor
+
+		hexInput.current.value = hexColor
+		hexInput.current.placeholder = hexColor
+		rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
+		rgbInput.current.placeholder = `rgb(${hexToRgb(hexColor).join(', ')})`
+		hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
+		hslInput.current.placeholder = `hsl(${hexToHsl(hexColor).join(', ')})`
 
 	}
 
@@ -46,6 +53,13 @@ export default function App() {
 		
 	}
 
+	const setRgbValue = (value) => {
+
+		// if(value.includes('#'))
+			
+
+	}
+
 	useEffect(() => {
 		setRandomVal()
 	}, [])
@@ -60,7 +74,7 @@ export default function App() {
 			<Form>
 				<Form.Group>
 					<Form.Label>HEX</Form.Label>
-					<Form.Control type="text" placeholder="#FF8032" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} />
+					<Form.Control type="text" placeholder="#FF8032" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} style={{textTransform:'uppercase'}} maxLength={7} />
 				</Form.Group>
 				<Form.Group>
 					<Form.Label>RGB</Form.Label>

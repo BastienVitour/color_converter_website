@@ -61,16 +61,20 @@ export function rgbToHsl(r, g, b) {
         }
     }
 
-    hue = (hue * 60, 1).toFixed(1)
+    hue = (hue * 60).toFixed(1)
 
-    saturation = (saturation * 100, 1).toFixed(1)
-    lightness = (lightness * 100, 1).toFixed(1)
+    saturation = (saturation * 100).toFixed(1)
+    lightness = (lightness * 100).toFixed(1)
 
     return [hue.toString(), saturation.toString(), lightness.toString()]
 
 }
 
-export function hexToRgb(r, g, b) {
+export function hexToRgb(value) {
+
+    let vals = cleanHexValue(value)
+
+    let r = vals[0]; let g = vals[1]; let b = vals[2]
 
     let red = r.toUpperCase().split('')
     let rgbRed = hexTab.indexOf(red[0]) * 16 + hexTab.indexOf(red[1])
@@ -81,11 +85,17 @@ export function hexToRgb(r, g, b) {
 
     return [rgbRed, rgbGreen, rgbBlue]
 
+    return `rgb(${rgbRed}, ${rgbGreen}, ${rgbBlue})`
+
 }
 
-export function hexToHsl(r, g, b) {
+export function hexToHsl(value) {
 
-    let rgb_vals = hexToRgb(r, g, b)
+    let vals = cleanHexValue(value)
+
+    let r = vals[0]; let g = vals[1]; let b = vals[2]
+
+    let rgb_vals = hexToRgb(value)
 
     return rgbToHsl(rgb_vals[0], rgb_vals[1], rgb_vals[2])
 
@@ -127,5 +137,17 @@ export function hslToHex(h, s, l) {
     let rgb_vals = hslToRgb(h, s, l)
 
     return rgbToHex(rgb_vals[0], rgb_vals[1], rgb_vals[2])
+
+}
+
+export function cleanHexValue(hex) {
+
+    let string = hex.replaceAll('#', '')
+
+    let red = string.slice(0, 2)
+    let green = string.slice(2, 4)
+    let blue = string.slice(4, 6)
+
+    return [red, green, blue]
 
 }

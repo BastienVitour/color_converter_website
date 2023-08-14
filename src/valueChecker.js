@@ -1,11 +1,11 @@
 export function hexChecker(value) {
     
-    let regex = /^#[0-9A-F]{6}$/
+    let regex = /^#[0-9A-F]{6}|[0-9A-F]{3}$/
 
     if(!regex.test(value))
         return false
 
-    let cleaned = value.replaceAll('#', '')
+    return true
 
 }
 
@@ -16,10 +16,8 @@ export function rgbChecker(value) {
     if(!regex.test(value))
         return false
 
-    let cleaned = value.split('(')[1].replaceAll(')', '').split(', ')
-
-    console.log(cleaned)
-
+    return true
+    
 }
 
 export function hslChecker(value) {
