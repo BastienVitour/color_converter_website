@@ -4,11 +4,13 @@ import Form from 'react-bootstrap/Form'
 
 import { rgbToHex, rgbToHsl, hexToRgb, hexToHsl, hslToRgb, hslToHex } from './converterFunctions';
 
+import { hexChecker, rgbChecker, hslChecker } from './valueChecker';
+
 export default function App() {
 
-	const [hex, setHex] = useState(null)
-	const [rgb, setRgb] = useState(null)
-	const [hsl, setHsl] = useState(null)
+	const [hex, setHex] = useState("")
+	const [rgb, setRgb] = useState("")
+	const [hsl, setHsl] = useState("")
 	const hexTab = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
 
 	const setRandomVal = () => {
@@ -30,8 +32,15 @@ export default function App() {
 
 		switch(type) {
 
-			//case 'hex':
-
+			case 'hex':
+				setHex(hexInput.current.value)
+				break
+			case 'rgb':
+				setRgb(rgbInput.current.value)
+				break
+			case 'hsl':
+				setHsl(hslInput.current.value)
+				break
 
 		}
 		
@@ -39,7 +48,6 @@ export default function App() {
 
 	useEffect(() => {
 		setRandomVal()
-		console.log(rgbToHex(255, 128, 50))
 	}, [])
 
 	const hexInput = useRef()
@@ -52,15 +60,15 @@ export default function App() {
 			<Form>
 				<Form.Group>
 					<Form.Label>HEX</Form.Label>
-					<Form.Control type="text" placeholder="#FF8032" value="#FF8032" ref={hexInput} onInput={(e) => handleInput('hex')} />
+					<Form.Control type="text" placeholder="#FF8032" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} />
 				</Form.Group>
 				<Form.Group>
 					<Form.Label>RGB</Form.Label>
-					<Form.Control type="text" placeholder="rgb(255, 128, 50)" value="rgb(255, 128, 50)"ref={rgbInput} />
+					<Form.Control type="text" placeholder="rgb(255, 128, 50)" value={rgb} ref={rgbInput} onInput={(e) => handleInput('rgb')} />
 				</Form.Group>
 				<Form.Group>
 					<Form.Label>HSL</Form.Label>
-					<Form.Control type="text" placeholder="hsl(22.8, 100, 59.8)" value="hsl(22.8, 100, 59.8)"ref={hslInput} />
+					<Form.Control type="text" placeholder="hsl(22.8, 100, 59.8)" value={hsl} ref={hslInput} onInput={(e) => handleInput('hsl')} />
 				</Form.Group>
 			</Form>
 		</div>

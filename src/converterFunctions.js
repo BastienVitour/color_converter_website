@@ -103,22 +103,16 @@ export function hslToRgb(h, s, l) {
 
     if (0 <= h && h < 60)
         r = d; g = x; b = 0
-        // r, g, b = d, x, 0
     if (60 <= h && h < 120)
         r = x; g = d; b = 0
-        // r, g, b = x, d, 0
     if (120 <= h && h < 180)
         r = 0; g = d; b = x
-        // r, g, b = 0, d, x
     if (180 <= h && h < 240)
         r = 0; g = x; b = d
-        // r, g, b = 0, x, d
     if (240 <= h && h < 300)
         r = x; g = 0; b = d
-        // r, g, b = x, 0, d
     if (300 <= h && h < 360)
         r = d; g = 0; b = x
-        // r, g, b = d, 0, x
 
     let red = (r + m) * 255
     let green = (g + m) * 255
