@@ -143,11 +143,23 @@ export function hslToHex(h, s, l) {
 export function cleanHexValue(hex) {
 
     let string = hex.replaceAll('#', '')
+    let red; let green; let blue
 
-    let red = string.slice(0, 2)
-    let green = string.slice(2, 4)
-    let blue = string.slice(4, 6)
+    if(string.length == 3) {
+        red = string[0] + string[0]
+        green = string[1] + string[1]
+        blue = string[2] + string[2]
+    }
+    else {
+        red = string.slice(0, 2)
+        green = string.slice(2, 4)
+        blue = string.slice(4, 6)
+    }
 
     return [red, green, blue]
 
+}
+
+export function cleanRgbValue() {
+    
 }

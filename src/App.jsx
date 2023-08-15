@@ -26,12 +26,12 @@ export default function App() {
 		rgbInput.current.style.backgroundColor = hexColor
 		hslInput.current.style.backgroundColor = hexColor
 
-		hexInput.current.value = hexColor
-		hexInput.current.placeholder = hexColor
-		rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
-		rgbInput.current.placeholder = `rgb(${hexToRgb(hexColor).join(', ')})`
-		hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
-		hslInput.current.placeholder = `hsl(${hexToHsl(hexColor).join(', ')})`
+		// hexInput.current.value = hexColor
+		setHex(hexColor)
+		// rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
+		setRgb(`rgb(${hexToRgb(hexColor).join(', ')})`)
+		// hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
+		setHsl(`hsl(${hexToHsl(hexColor).join(', ')})`)
 
 	}
 
@@ -55,14 +55,58 @@ export default function App() {
 
 	const setRgbValue = (value) => {
 
-		// if(value.includes('#'))
-			
+		if(value.includes('#')) {
+			rgbInput.current.value = `rgb(${hexToRgb(value).join(', ')})`
+		}
+		else {
+
+		}
+
+	}
+
+	const setHexValue = (value) => {
+
+		if(value.includes('rgb')) {
+			rgbInput.current.value = `rgb(${hexToRgb(value).join(', ')})`
+			setRgb(`rgb(${hexToRgb(value).join(', ')})`)
+		}
+		else {
+
+		}
+
+	}
+
+	const setHslValue = (value) => {
+
+		if(value.includes('#')) {
+			hslInput.current.value = `hsl(${hexToHsl(value).join(', ')})`
+		}
+		else {
+
+		}
 
 	}
 
 	useEffect(() => {
 		setRandomVal()
 	}, [])
+
+	useEffect(() => {
+		console.log(rgb)
+		if(hexChecker(hex)) {
+			setRgbValue(hex)
+			setHslValue(hex)
+			document.getElementsByClassName('app')[0].style.backgroundColor = hex
+			hexInput.current.style.backgroundColor = hex
+			rgbInput.current.style.backgroundColor = hex
+			hslInput.current.style.backgroundColor = hex
+		}
+		// else {
+
+		// }
+		//console.log(hex)
+		//console.log(hexChecker(hex))
+	}, [hex])
 
 	const hexInput = useRef()
 	const rgbInput = useRef()
@@ -72,15 +116,15 @@ export default function App() {
       <div className="app">
 		<div id="form">
 			<Form>
-				<Form.Group>
+				<Form.Group className="group">
 					<Form.Label>HEX</Form.Label>
 					<Form.Control type="text" placeholder="#FF8032" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} style={{textTransform:'uppercase'}} maxLength={7} />
 				</Form.Group>
-				<Form.Group>
+				<Form.Group className="group">
 					<Form.Label>RGB</Form.Label>
 					<Form.Control type="text" placeholder="rgb(255, 128, 50)" value={rgb} ref={rgbInput} onInput={(e) => handleInput('rgb')} />
 				</Form.Group>
-				<Form.Group>
+				<Form.Group className="group">
 					<Form.Label>HSL</Form.Label>
 					<Form.Control type="text" placeholder="hsl(22.8, 100, 59.8)" value={hsl} ref={hslInput} onInput={(e) => handleInput('hsl')} />
 				</Form.Group>

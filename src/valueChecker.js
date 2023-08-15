@@ -1,6 +1,6 @@
 export function hexChecker(value) {
     
-    let regex = /^#[0-9A-F]{6}|[0-9A-F]{3}$/
+    let regex = /^#[0-9A-F]{6}$|^#[0-9A-F]{3}$/
 
     if(!regex.test(value))
         return false
@@ -17,7 +17,7 @@ export function rgbChecker(value) {
         return false
 
     return true
-    
+
 }
 
 export function hslChecker(value) {

@@ -3,21 +3,31 @@
   	display: flex;
   	justify-content: center;
   	align-items: center;
-  	height: 100vh
+  	height: 100vh;
+	transition: 0.5s;
 }
 
 #form {
 
-  	input {
+	.group {
+
+		margin-top: 25px;
+
+		input {
 		
 		border-radius: 0;
 		border: none;
 		border-bottom: 1px solid #000;
+		transition: 0.5s;
+
+		}
+
+		input:focus {
+			box-shadow: none;
+		}
 
 	}
 
-	input:focus {
-		box-shadow: none;
-	}
+  	
 
 }
