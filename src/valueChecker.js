@@ -22,7 +22,7 @@ export function rgbChecker(value) {
 
 export function hslChecker(value) {
 
-    let regex = /^hsl\((?:\d{1,3}(?:\.\d{1})?), ?(?:\d{1,3}(?:\.\d{1})?), ?(?:\d{1,3}(?:\.\d{1})?)\)$/
+    let regex = /^hsl\((?:\d{1,3}(?:\.\d{1})?), ?(?:\d{1,3}(?:\.\d{1})?)%, ?(?:\d{1,3}(?:\.\d{1})?)%\)$/
 
     if(!regex.test(value))
         return false

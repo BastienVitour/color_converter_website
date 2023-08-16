@@ -1,6 +1,10 @@
 const hexTab = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
 
-export function rgbToHex(r, g, b) {
+export function rgbToHex(value) {
+
+    let vals = cleanRgbValue(value)
+
+    let r = vals[0]; let g = vals[1]; let b = vals[2]
 
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
         return ("Invalid value(s)")
@@ -16,7 +20,11 @@ export function rgbToHex(r, g, b) {
 
 }
 
-export function rgbToHsl(r, g, b) {
+export function rgbToHsl(value) {
+
+    let vals = cleanRgbValue(value)
+
+    let r = vals[0]; let g = vals[1]; let b = vals[2]
 
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
         return ("Invalid value(s)")
@@ -66,7 +74,7 @@ export function rgbToHsl(r, g, b) {
     saturation = (saturation * 100).toFixed(1)
     lightness = (lightness * 100).toFixed(1)
 
-    return [hue.toString(), saturation.toString(), lightness.toString()]
+    return [hue.toString(), saturation.toString() + '%', lightness.toString() + '%']
 
 }
 
@@ -85,8 +93,6 @@ export function hexToRgb(value) {
 
     return [rgbRed, rgbGreen, rgbBlue]
 
-    return `rgb(${rgbRed}, ${rgbGreen}, ${rgbBlue})`
-
 }
 
 export function hexToHsl(value) {
@@ -97,11 +103,15 @@ export function hexToHsl(value) {
 
     let rgb_vals = hexToRgb(value)
 
-    return rgbToHsl(rgb_vals[0], rgb_vals[1], rgb_vals[2])
+    return rgbToHsl(`rgb(${rgb_vals[0]}, ${rgb_vals[1]}, ${rgb_vals[2]})`)
 
 }
 
-export function hslToRgb(h, s, l) {
+export function hslToRgb(value) {
+
+    let vals = cleanHslValue(value)
+
+    let h = vals[0]; let s = vals[1]; let l = vals[2]
 
     let d = (s / 100) * (1 - Math.abs(2 * (l / 100) - 1))
 
@@ -111,18 +121,24 @@ export function hslToRgb(h, s, l) {
 
     let r = 0, g = 0, b = 0
 
-    if (0 <= h && h < 60)
+    if (0 <= h && h < 60) {
         r = d; g = x; b = 0
-    if (60 <= h && h < 120)
+    }
+    if (60 <= h && h < 120) {
         r = x; g = d; b = 0
-    if (120 <= h && h < 180)
+    }
+    if (120 <= h && h < 180) {
         r = 0; g = d; b = x
-    if (180 <= h && h < 240)
+    }
+    if (180 <= h && h < 240) {
         r = 0; g = x; b = d
-    if (240 <= h && h < 300)
+    }
+    if (240 <= h && h < 300) {
         r = x; g = 0; b = d
-    if (300 <= h && h < 360)
+    }
+    if (300 <= h && h <= 360) {
         r = d; g = 0; b = x
+    }
 
     let red = (r + m) * 255
     let green = (g + m) * 255
@@ -132,11 +148,15 @@ export function hslToRgb(h, s, l) {
 
 }
 
-export function hslToHex(h, s, l) {
+export function hslToHex(value) {
 
-    let rgb_vals = hslToRgb(h, s, l)
+    let vals = cleanHexValue(value)
 
-    return rgbToHex(rgb_vals[0], rgb_vals[1], rgb_vals[2])
+    let h = vals[0]; let s = vals[1]; let l = vals[2]
+
+    let rgb_vals = hslToRgb(value)
+
+    return rgbToHex(`rgb(${rgb_vals[0]}, ${rgb_vals[1]}, ${rgb_vals[2]})`)
 
 }
 
@@ -160,6 +180,20 @@ export function cleanHexValue(hex) {
 
 }
 
-export function cleanRgbValue() {
-    
+export function cleanRgbValue(value) {
+
+    let string = value.toString()
+    let values = string.split('').slice(4).join('').replaceAll(')', '').split(', ')
+
+    return [values[0], values[1], values[2]]
+
+}
+
+export function cleanHslValue(value) {
+
+    let string = value.toString()
+    let values = string.split('').slice(4).join('').replaceAll(')', '').replaceAll('%', '').split(', ')
+
+    return [parseFloat(values[0]), parseFloat(values[1]), parseFloat(values[2])]
+
 }

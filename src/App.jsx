@@ -26,12 +26,14 @@ export default function App() {
 		rgbInput.current.style.backgroundColor = hexColor
 		hslInput.current.style.backgroundColor = hexColor
 
-		// hexInput.current.value = hexColor
-		setHex(hexColor)
-		// rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
-		setRgb(`rgb(${hexToRgb(hexColor).join(', ')})`)
-		// hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
-		setHsl(`hsl(${hexToHsl(hexColor).join(', ')})`)
+		hexInput.current.value = hexColor
+		//setHex(hexColor)
+		rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
+		//setRgb(`rgb(${hexToRgb(hexColor).join(', ')})`)
+		hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
+		//setHsl(`hsl(${hexToHsl(hexColor).join(', ')})`)
+
+
 
 	}
 
@@ -59,21 +61,18 @@ export default function App() {
 			rgbInput.current.value = `rgb(${hexToRgb(value).join(', ')})`
 		}
 		else {
-
+			rgbInput.current.value = `rgb(${hslToRgb(value).join(', ')})`
 		}
-
 	}
 
 	const setHexValue = (value) => {
 
 		if(value.includes('rgb')) {
-			rgbInput.current.value = `rgb(${hexToRgb(value).join(', ')})`
-			setRgb(`rgb(${hexToRgb(value).join(', ')})`)
+			hexInput.current.value = `#${rgbToHex(value).join('')}`
 		}
 		else {
-
+			hexInput.current.value = `#${hslToHex(value).join('')}`
 		}
-
 	}
 
 	const setHslValue = (value) => {
@@ -82,9 +81,8 @@ export default function App() {
 			hslInput.current.value = `hsl(${hexToHsl(value).join(', ')})`
 		}
 		else {
-
+			hslInput.current.value = `hsl(${rgbToHsl(value).join(', ')})`
 		}
-
 	}
 
 	useEffect(() => {
@@ -92,7 +90,6 @@ export default function App() {
 	}, [])
 
 	useEffect(() => {
-		console.log(rgb)
 		if(hexChecker(hex)) {
 			setRgbValue(hex)
 			setHslValue(hex)
@@ -101,12 +98,30 @@ export default function App() {
 			rgbInput.current.style.backgroundColor = hex
 			hslInput.current.style.backgroundColor = hex
 		}
-		// else {
-
-		// }
-		//console.log(hex)
-		//console.log(hexChecker(hex))
 	}, [hex])
+
+	useEffect(() => {
+		if(rgbChecker(rgb)) {
+			setHexValue(rgb)
+			setHslValue(rgb)
+			document.getElementsByClassName('app')[0].style.backgroundColor = rgb
+			hexInput.current.style.backgroundColor = rgb
+			rgbInput.current.style.backgroundColor = rgb
+			hslInput.current.style.backgroundColor = rgb
+		}
+	}, [rgb])
+
+	useEffect(() => {
+		if(hslChecker(hsl)) {
+			setRgbValue(hsl)
+			setHexValue(hsl)
+			document.getElementsByClassName('app')[0].style.backgroundColor = hsl
+			console.log(document.getElementsByClassName('app')[0].style.backgroundColor)
+			hexInput.current.style.backgroundColor = hsl
+			rgbInput.current.style.backgroundColor = hsl
+			hslInput.current.style.backgroundColor = hsl
+		}
+	}, [hsl])
 
 	const hexInput = useRef()
 	const rgbInput = useRef()
