@@ -27,13 +27,8 @@ export default function App() {
 		hslInput.current.style.backgroundColor = hexColor
 
 		hexInput.current.value = hexColor
-		//setHex(hexColor)
 		rgbInput.current.value = `rgb(${hexToRgb(hexColor).join(', ')})`
-		//setRgb(`rgb(${hexToRgb(hexColor).join(', ')})`)
 		hslInput.current.value = `hsl(${hexToHsl(hexColor).join(', ')})`
-		//setHsl(`hsl(${hexToHsl(hexColor).join(', ')})`)
-
-
 
 	}
 
@@ -133,15 +128,15 @@ export default function App() {
 			<Form>
 				<Form.Group className="group">
 					<Form.Label>HEX</Form.Label>
-					<Form.Control type="text" placeholder="#FF8032" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} style={{textTransform:'uppercase'}} maxLength={7} />
+					<Form.Control type="text" placeholder="#FF0000" value={hex} ref={hexInput} onInput={(e) => handleInput('hex')} style={{textTransform:'uppercase'}} maxLength={7} />
 				</Form.Group>
 				<Form.Group className="group">
 					<Form.Label>RGB</Form.Label>
-					<Form.Control type="text" placeholder="rgb(255, 128, 50)" value={rgb} ref={rgbInput} onInput={(e) => handleInput('rgb')} />
+					<Form.Control type="text" placeholder="rgb(255, 0, 0)" value={rgb} ref={rgbInput} onInput={(e) => handleInput('rgb')} />
 				</Form.Group>
 				<Form.Group className="group">
 					<Form.Label>HSL</Form.Label>
-					<Form.Control type="text" placeholder="hsl(22.8, 100, 59.8)" value={hsl} ref={hslInput} onInput={(e) => handleInput('hsl')} />
+					<Form.Control type="text" placeholder="hsl(0.0, 100.0%, 50.0%)" value={hsl} ref={hslInput} onInput={(e) => handleInput('hsl')} />
 				</Form.Group>
 			</Form>
 		</div>

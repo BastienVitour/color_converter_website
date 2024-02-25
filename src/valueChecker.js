@@ -16,6 +16,14 @@ export function rgbChecker(value) {
     if(!regex.test(value))
         return false
 
+    let string = value.toString()
+    let values = string.split('').slice(4).join('').replaceAll(')', '').split(', ')
+    let r = values[0], g = values[1], b = values[2]
+
+    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+        return false
+    }
+
     return true
 
 }

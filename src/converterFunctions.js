@@ -5,10 +5,6 @@ export function rgbToHex(value) {
     let vals = cleanRgbValue(value)
 
     let r = vals[0]; let g = vals[1]; let b = vals[2]
-
-    if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-        return ("Invalid value(s)")
-    }
     
     let hexRed = hexTab[Math.floor(r / 16)]+hexTab[r % 16]
 
@@ -39,13 +35,13 @@ export function rgbToHsl(value) {
 
     let lightness = (max_val + min_val) / 2
 
-    let saturation = lightness != 0 ? d / (1 - Math.abs(2 * lightness - 1)) : 0
+    let saturation = lightness !== 0 ? d / (1 - Math.abs(2 * lightness - 1)) : 0
 
     let hue = 0
     let segment = 0
     let shift = 0
 
-    if (d == 0) {
+    if (d === 0) {
         hue = 0
     }
     else {
@@ -97,10 +93,6 @@ export function hexToRgb(value) {
 
 export function hexToHsl(value) {
 
-    let vals = cleanHexValue(value)
-
-    let r = vals[0]; let g = vals[1]; let b = vals[2]
-
     let rgb_vals = hexToRgb(value)
 
     return rgbToHsl(`rgb(${rgb_vals[0]}, ${rgb_vals[1]}, ${rgb_vals[2]})`)
@@ -150,10 +142,6 @@ export function hslToRgb(value) {
 
 export function hslToHex(value) {
 
-    let vals = cleanHexValue(value)
-
-    let h = vals[0]; let s = vals[1]; let l = vals[2]
-
     let rgb_vals = hslToRgb(value)
 
     return rgbToHex(`rgb(${rgb_vals[0]}, ${rgb_vals[1]}, ${rgb_vals[2]})`)
@@ -165,7 +153,7 @@ export function cleanHexValue(hex) {
     let string = hex.replaceAll('#', '')
     let red; let green; let blue
 
-    if(string.length == 3) {
+    if(string.length === 3) {
         red = string[0] + string[0]
         green = string[1] + string[1]
         blue = string[2] + string[2]
